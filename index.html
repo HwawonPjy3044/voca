@@ -1,0 +1,55 @@
+<!-- 보안 강화를 위해 API 키 입력 모달이 추가된 구조 예시 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- (기존 헤더 스타일 동일) -->
+    <style>
+        /* 추가 스타일: 설정 모달용 */
+        #config-modal { background: rgba(0,0,0,0.8); z-index: 100; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex items-center justify-center p-4">
+
+    <!-- API 키 설정 모달 (배포 시 필요) -->
+    <div id="config-modal" class="fixed inset-0 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full space-y-4">
+            <h2 class="text-xl font-bold text-slate-800">API 키 설정</h2>
+            <p class="text-sm text-slate-500">이 앱은 Gemini API를 사용합니다. 본인의 API 키를 입력해주세요. 키는 브라우저에만 저장됩니다.</p>
+            <input type="password" id="api-key-input" class="w-full p-3 border rounded-xl" placeholder="AI... ">
+            <button onclick="saveApiKey()" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold">시작하기</button>
+        </div>
+    </div>
+
+    <!-- (기존 앱 컨테이너 구조 동일) -->
+
+    <script>
+        // 변수 선언 방식 변경
+        let apiKey = localStorage.getItem('GEMINI_API_KEY') || ""; 
+        const modelName = "gemini-2.5-flash-preview-09-2025";
+        const ttsModel = "gemini-2.5-flash-preview-tts";
+
+        // (기존 변수 및 함수 동일...)
+
+        // API 키 저장 함수
+        function saveApiKey() {
+            const input = document.getElementById('api-key-input').value;
+            if (input) {
+                localStorage.setItem('GEMINI_API_KEY', input);
+                apiKey = input;
+                document.getElementById('config-modal').classList.add('hidden');
+                fetchQuestion();
+            }
+        }
+
+        window.onload = () => {
+            if (!apiKey) {
+                document.getElementById('config-modal').classList.remove('hidden');
+            } else {
+                fetchQuestion();
+            }
+        };
+
+        // (이하 기존 fetchQuestion, checkAnswer 로직 동일...)
+    </script>
+</body>
+</html>
