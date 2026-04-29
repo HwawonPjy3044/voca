@@ -107,7 +107,7 @@
 
     <script>
         let apiKey = localStorage.getItem('GEMINI_API_KEY') || ""; 
-        const modelName = "gemini-2.5-flash-lite";
+        const modelName = "gemini-3.1-flash-lite";
 
         let solvedCount = 0;
         let currentWordData = null;
@@ -133,7 +133,7 @@
         const errorModal = document.getElementById('custom-error-modal');
 
         // 프롬프트에 중복 금지 및 랜덤성 강화 문구 추가
-        const systemPrompt = "You are a CSAT English expert. Generate a multiple-choice quiz. IMPORTANT: Pick a unique, high-level academic word each time. DO NOT repeat common words like 'apple' or 'study'. The response MUST be JSON with: word, choices(4 Korean), answerIndex(0-3), praise, sentence(English with ___), mnemonic(Korean).";
+        const systemPrompt = "대학수능 필수 영어 단어 중에서 고등학생이 반드시 알아야 할 빈도수가 높은 핵심 단어 위주로 내줘. The response MUST be JSON with: word, choices(4 Korean), answerIndex(0-3), praise, sentence(English with ___), mnemonic(Korean).";
 
         function saveApiKey() {
             const val = document.getElementById('api-key-input').value.trim();
